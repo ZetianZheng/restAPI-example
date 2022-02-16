@@ -10,6 +10,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * @Configuration
+ *      Annotating a class with the @Configuration indicates that the class can be used by the Spring IoC container as **a source of bean definitions**.
+ *      The @Bean annotation tells Spring that a method annotated with @Bean will return an object that should be registered as a bean in the Spring application context.
+ * extends WebSecurityConfigurerAdapter:(Spring security)
+ *      the class should extend WebSecurityConfigurerAdapter to secure your API with Basic Authentication
+ */
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {

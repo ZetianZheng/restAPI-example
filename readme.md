@@ -35,7 +35,7 @@ after set up, you can open the localhost:8082/h2 to open h2 console.
    - why not create the dog table?: [application.properties](./src/main/resources/application.properties)
 8. Step 6: Check that you are able to access your API.
    ![img.png](img.png)
-# security your dog API
+# Secure your dog API
 Reuse your Dog REST API code from Lesson 2 and secure it using Basic Authentication.
 
 - Step 1: Add the necessary dependencies for Spring Security in the Maven POM file.
@@ -43,6 +43,17 @@ Reuse your Dog REST API code from Lesson 2 and secure it using Basic Authenticat
 - Step 2: Create the necessary security configuration class that extends WebSecurityConfigurerAdapter to secure your API with Basic Authentication.
    - [SpringSecurityConfig](./src/main/java/com/udacity/RestAPIexample/config/SpringSecurityConfig.java)
 - Step 3: Test that your API is now secured with basic authentication and still operates appropriately for an authenticated user.
+
+# Documentation:
+Lab: Document Your Dog API
+Reuse your Dog REST API code from Lesson 2 and document it using Swagger.
+
+- Step 1: Add the necessary dependencies to the Maven POM file that include Springfox’s implementation of Swagger.   
+   - [pom.xml](./pom.xml)
+- Step 2: Configure Swagger using a Docket Bean.
+   - [SwaggerConfig](./src/main/java/com/udacity/RestAPIexample/config/SwaggerConfig.java)
+
+- Step 3: Utilize Swagger UI to review and test your API.
 # problem fix:
 ## fix plugin not found problem:
 [java - Plugin 'org.springframework.boot:spring-boot-maven-plugin:' not found - Stack Overflow](https://stackoverflow.com/questions/64639836/plugin-org-springframework-bootspring-boot-maven-plugin-not-found)
@@ -65,7 +76,8 @@ Reuse your Dog REST API code from Lesson 2 and secure it using Basic Authenticat
 2. 创建数据表放在schema.sql中
 
 ## table Dog not found:
-reference: https://stackoverflow.com/questions/67695069/spring-boot-datasource-initialization-error-with-data-sql-script-after-2-5-0-upg
+reference: https://stackoverflow.com/questions/67695069/spring-boot-datasource-initialization-error-with-data-sql-script-after-2-5-0-upg  
+
 By default, data.sql scripts are now run before Hibernate is initialized.
 This aligns the behavior of basic script-based initialization with that of Flyway and Liquibase.
 If you want to use data.sql to populate a schema created by Hibernate,
