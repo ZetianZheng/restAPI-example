@@ -34,6 +34,7 @@ after set up, you can open the localhost:8082/h2 to open h2 console.
    - insert some initial data into the database
    - why not create the dog table?: [application.properties](./src/main/resources/application.properties)
 8. Step 6: Check that you are able to access your API.
+   - http://localhost:8082/h2
    ![img.png](img.png)
 # Secure your dog API
 Reuse your Dog REST API code from Lesson 2 and secure it using Basic Authentication.
@@ -54,6 +55,10 @@ Reuse your Dog REST API code from Lesson 2 and document it using Swagger.
    - [SwaggerConfig](./src/main/java/com/udacity/RestAPIexample/config/SwaggerConfig.java)
 
 - Step 3: Utilize Swagger UI to review and test your API.
+   - http://localhost:8082/swagger-ui.html#
+- 自定义状态码：
+   1. [SwaggerConfig](./src/main/java/com/udacity/RestAPIexample/config/SwaggerConfig.java)关闭默认
+   2. [DogController](./src/main/java/com/udacity/RestAPIexample/web/DogController.java)增加APIResponses
 # problem fix:
 ## fix plugin not found problem:
 [java - Plugin 'org.springframework.boot:spring-boot-maven-plugin:' not found - Stack Overflow](https://stackoverflow.com/questions/64639836/plugin-org-springframework-bootspring-boot-maven-plugin-not-found)

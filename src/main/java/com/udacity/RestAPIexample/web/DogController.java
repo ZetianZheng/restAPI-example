@@ -2,6 +2,8 @@ package com.udacity.RestAPIexample.web;
 
 import com.udacity.RestAPIexample.entity.Dog;
 import com.udacity.RestAPIexample.service.DogService;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +30,16 @@ import java.util.List;
  *
  * @PathVariable
  *      @pathVariable 是直接从uri的占位符中extract 值。URL 中的 {xxx} 占位符可以通过@PathVariable(“xxx“) 绑定到操作方法的入参中。
+ *
+ * @ApiResponses:
+ *      自定义code status message
  */
 @RestController
+@ApiResponses(value = {
+        @ApiResponse(code=400, message = "This is a bad request"),
+        @ApiResponse(code=401, message = "Due to security constraints, your access request cannot be authorized"),
+        @ApiResponse(code=500, message = "the server down")
+})
 public class DogController {
     private DogService dogService;
 

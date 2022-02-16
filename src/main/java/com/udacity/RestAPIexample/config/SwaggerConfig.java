@@ -34,6 +34,9 @@ import java.util.Collections;
  *    any() --- 扫描所有类
  *    withClassAnnotation() --- 通过判断类上的注解中有xxx注解扫描类
  *    withMethodAnnotation() --- 通过判断方法上的注解中有xxx注解扫描方法
+ *
+ *
+ * useDefaultResponseMessages: 关闭默认状态码提示，使用自定义。
  * */
 @Configuration
 @EnableSwagger2
@@ -45,7 +48,8 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()
-                .apiInfo(apiInfo());
+                .apiInfo(apiInfo())
+                .useDefaultResponseMessages(false);
     }
 
     private ApiInfo apiInfo() {
