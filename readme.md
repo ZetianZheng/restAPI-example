@@ -27,7 +27,10 @@ after set up, you can open the localhost:8082/h2 to open h2 console.
    - a list of Dog breeds
    - a list of Dog breeds by Id
    - a list of Dog names
-   - @RestController; @Autowired; @ResponseEntity<List<Dog>>； @PathVariable
+   - @RestController; [The Spring @Controller and @RestController Annotations | Baeldung](https://www.baeldung.com/spring-controller-vs-restcontroller)
+   - @Autowired; [Spring注解详解_随性-CSDN博客_spring注解](https://blog.csdn.net/xyh820/article/details/7303330/) 
+   - @ResponseEntity<List<Dog>>； [ResponseEntity和@ResponseBody以及@ResponseStatus区别 -解道Jdon](https://www.jdon.com/springboot/responseentity.html)
+   - @PathVariable: [@PathVariable注解的用法和作用（Demo详解）_辰兮要努力-CSDN博客_pathvariable注解](https://blessing.blog.csdn.net/article/details/108814901?spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-1.pc_relevant_aa&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-1.pc_relevant_aa&utm_relevant_index=2)
 6. Step 4: Make sure errors are handled appropriately.
 7. Step 5: Create a data.sql file to create sample dog data in the database.
    - [data.sql](./src/main/resources/data.sql)
@@ -59,6 +62,16 @@ Reuse your Dog REST API code from Lesson 2 and document it using Swagger.
 - 自定义状态码：
    1. [SwaggerConfig](./src/main/java/com/udacity/RestAPIexample/config/SwaggerConfig.java)关闭默认
    2. [DogController](./src/main/java/com/udacity/RestAPIexample/web/DogController.java)增加APIResponses
+    
+# Test Dog API
+Reuse your Dog REST API code from Lesson 2 and create unit and integration tests for it.
+[在SpringBoot中使用MockMvc进行单位测试 - 简书](https://www.jianshu.com/p/13408dd4bef7)
+- Step 1: Create a unit test for your API using the @WebMvcTest annotation.
+  [DogControllerUnitTest](./src/test/java/com/udacity/RestAPIexample/web/DogControllerUnitTest.java)
+- Step 2: Create an integration test for your API using the @SpringBootTest annotation.
+- TestRestTemplate:
+- assertThat:
+
 # problem fix:
 ## fix plugin not found problem:
 [java - Plugin 'org.springframework.boot:spring-boot-maven-plugin:' not found - Stack Overflow](https://stackoverflow.com/questions/64639836/plugin-org-springframework-bootspring-boot-maven-plugin-not-found)
@@ -89,3 +102,45 @@ If you want to use data.sql to populate a schema created by Hibernate,
 set spring.jpa.defer-datasource-initialization to true.
 While mixing database initialization technologies is not recommended,
 this will also allow you to use a schema.sql script to build upon a Hibernate-created schema before it’s populated via data.sql.
+
+## restTemplate:
+[RestTemplate 最详解 - 程序员自由之路 - 博客园](https://www.cnblogs.com/54chensongxia/p/11414923.html)
+
+## assertThat:
+[(58条消息) JUnit4教程（三）：assertThat语法与Matcher_十年后的你由现在决定-CSDN博客](https://blog.csdn.net/u013001763/article/details/80256770)  
+- Junit assert:
+```java
+public class AssertThatTest {  
+    private int id = 6;  
+    private boolean trueValue = true;  
+    private Object nullObject = null;  
+    private String msg = "Hello World";  
+  
+    @Test  
+    public void testAssert() throws Exception {  
+        assertEquals(6, id);  
+        assertTrue(trueValue);  
+        assertNull(nullObject);  
+        assertTrue(msg != null && msg.startsWith("Hello") && msg.endsWith("World"));  
+    }  
+}  
+```
+- Junit assertThat 增强可读性
+```java
+public class AssertThatTest {  
+    private int id = 6;  
+    private boolean trueValue = true;  
+    private Object nullObject = null;  
+    private String msg = "Hello World!";  
+  
+    @Test  
+    public void testAssertThat() throws Exception {  
+        //由于静态导入了org.haibin369.matcher.MyMatchers.*，可以调用里面的  
+        //is(), nullValue(), containsString(), startsWith()方法，可读性更好  
+        assertThat(id, is(6));  
+        assertThat(trueValue, is(true));  
+        assertThat(nullObject, nullValue());  
+        assertThat(msg, both(startsWith("Hello")).and(endsWith("World")));  
+    }  
+}  
+```
