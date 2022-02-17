@@ -2,8 +2,7 @@ package com.udacity.RestAPIexample.web;
 
 import com.udacity.RestAPIexample.entity.Dog;
 import com.udacity.RestAPIexample.service.DogService;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +39,7 @@ import java.util.List;
         @ApiResponse(code=401, message = "Due to security constraints, your access request cannot be authorized"),
         @ApiResponse(code=500, message = "the server down")
 })
+@Api(value="DogController to handle request for dogs checking")
 public class DogController {
     private DogService dogService;
 
@@ -53,6 +53,7 @@ public class DogController {
      * body 是dogs， 状态码是HttpStatus.OK
      * @return
      */
+    @ApiOperation(value ="get all dogs list")
     @GetMapping("/dogs")
     public ResponseEntity<List<Dog>> getAllDogs() {
         List<Dog> dogs = dogService.retrieveDogs();
@@ -60,12 +61,15 @@ public class DogController {
     }
 
     @GetMapping("/dogs/breed")
+    @ApiOperation(value ="get all dogs breeds list")
     public ResponseEntity<List<String>> getDogBreeds() {
         List<String> list = dogService.retrieveDogBreeds();
         return new ResponseEntity<List<String>>(list, HttpStatus.OK);
     }
 
     @GetMapping("/{id}/breed")
+    @ApiOperation(value ="get dog breed by Id", notes="need dog id")
+    @ApiImplicitParam(paramType = "query", name="id", value="dog id",required = true, dataType = "Long")
     public ResponseEntity<String> getBreedByID(@PathVariable Long id) {
         String breed = dogService.retrieveDogBreedById(id);
         return new ResponseEntity<String>(breed, HttpStatus.OK);

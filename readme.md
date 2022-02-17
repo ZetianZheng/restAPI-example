@@ -43,10 +43,14 @@ after set up, you can open the localhost:8082/h2 to open h2 console.
 Reuse your Dog REST API code from Lesson 2 and secure it using Basic Authentication.
 
 - Step 1: Add the necessary dependencies for Spring Security in the Maven POM file.
-  - [pom.xml](./pom.xml)
+    - [pom.xml](./pom.xml)
 - Step 2: Create the necessary security configuration class that extends WebSecurityConfigurerAdapter to secure your API with Basic Authentication.
-   - [SpringSecurityConfig](./src/main/java/com/udacity/RestAPIexample/config/SpringSecurityConfig.java)
+    - [SpringSecurityConfig](./src/main/java/com/udacity/RestAPIexample/config/SpringSecurityConfig.java)
+- [EncoderConfig](./src/main/java/com/udacity/RestAPIexample/config/EncoderConfig.java): use configuration to put @bean in the Spring container 
+    - fix the conflict which @Bean and @Autowired cannot put in the same class.
 - Step 3: Test that your API is now secured with basic authentication and still operates appropriately for an authenticated user.
+    - access the http://localhost:8082/ need name and password 
+  
 
 # Documentation:
 Lab: Document Your Dog API
@@ -56,19 +60,20 @@ Reuse your Dog REST API code from Lesson 2 and document it using Swagger.
    - [pom.xml](./pom.xml)
 - Step 2: Configure Swagger using a Docket Bean.
    - [SwaggerConfig](./src/main/java/com/udacity/RestAPIexample/config/SwaggerConfig.java)
-
+- 自定义状态码：
+    1. [SwaggerConfig](./src/main/java/com/udacity/RestAPIexample/config/SwaggerConfig.java)关闭默认
+    2. [DogController](./src/main/java/com/udacity/RestAPIexample/web/DogController.java)增加APIResponses
 - Step 3: Utilize Swagger UI to review and test your API.
    - http://localhost:8082/swagger-ui.html#
-- 自定义状态码：
-   1. [SwaggerConfig](./src/main/java/com/udacity/RestAPIexample/config/SwaggerConfig.java)关闭默认
-   2. [DogController](./src/main/java/com/udacity/RestAPIexample/web/DogController.java)增加APIResponses
-    
+
+    ![document-Dog-controller.png](document1.png)
 # Test Dog API
 Reuse your Dog REST API code from Lesson 2 and create unit and integration tests for it.
 [在SpringBoot中使用MockMvc进行单位测试 - 简书](https://www.jianshu.com/p/13408dd4bef7)
 - Step 1: Create a unit test for your API using the @WebMvcTest annotation.
   [DogControllerUnitTest](./src/test/java/com/udacity/RestAPIexample/web/DogControllerUnitTest.java)
 - Step 2: Create an integration test for your API using the @SpringBootTest annotation.
+  [DogControllerUnitIntegrationTest](./src/test/java/com/udacity/RestAPIexample/web/DogControllerUnitIntegrationTest.java)
 - TestRestTemplate:
 - assertThat:
 
@@ -144,3 +149,9 @@ public class AssertThatTest {
     }  
 }  
 ```
+
+# Failed to start bean 'documentationPluginsBootstrapper'
+- This error is due to a bug in SpringFox that assumes that MVC's path matching will use the Ant-based path matcher and not the PathPattern-based matcher. 
+  But in Spring Boot 2.6 the PathPattern-based is the default and this is the root cause of the error
+- 又称路径匹配原则(Path Matching)。Spring MVC中的路径匹配要比标准的web.xml要灵活的多。 默认的策略实现了 org.springframework.util.AntPathMatcher，就像名字提示的那样，路径模式是使用了Apache Ant的样式路径。
+    原文链接：https://blog.csdn.net/ahutdbx/article/details/82852921
