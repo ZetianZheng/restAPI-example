@@ -18,18 +18,24 @@ import java.util.List;
 /**
  * @RunWith:
  *      @RunWith(SpringRunner.class)，就是指用SpringRunner来运行，
+ * @AutoConfigureMockMvc
+ *      @AutoConfigureMockMvc是用于自动配置MockMvc
+ * SpringBootTest.WebEnvironment.RANDOM_PORT
+ *      先把服务器跑起来 ， 并用 SpringBootTest.WebEnvironment.RANDOM_PORT 放在随机端口，因为实测的时候会运行在多个port上：
  *
- * 先把服务器跑起来 ， 并用 SpringBootTest.WebEnvironment.RANDOM_PORT 放在随机端口，因为实测的时候会运行在多个port上：
- * @LocalServerPort 获取本地运行端口。
+ * @LocalServerPort
+ *      获取本地运行端口。
  *
  * restTemplate: [RestTemplate 最详解 - 程序员自由之路 - 博客园](https://www.cnblogs.com/54chensongxia/p/11414923.html)
  *      Http 常用客户端，spring框架提供的RestTemplate类可用于在应用中调用rest服务，它简化了与http服务的通信方式，统一了RESTful的标准，封装了http链接,大大提高客户端的编写效率
  *      testRestTemplate can consume RestApi
+ *
+ * .withBasicAuth
+ *      authorized the test api.
+ *
  * getForEntity:
  *      retrieves a responseEntity by using Get
  *
- * @AutoConfigureMockMvc
- *      @AutoConfigureMockMvc是用于自动配置MockMvc
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -53,7 +59,7 @@ public class DogControllerUnitIntegrationTest {
 
     @Test
     public void getAllDogs() {
-        ResponseEntity<List> response = this.restTemplate.getForEntity("http://localhost:" + port + "/dogs", List.class);
+        ResponseEntity<List> response = this.restTemplate.withBasicAuth("admin", "password").getForEntity("http://localhost:" + port + "/dogs", List.class);
 
         MatcherAssert.assertThat(response.getStatusCode(), CoreMatchers.equalTo(HttpStatus.OK));
     }

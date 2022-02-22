@@ -10,9 +10,12 @@ import java.util.List;
 /**
  * While Spring implements a lot of the repository for you,
  * I have added a few helpful queries to be able to obtain some of the necessary information for our DogService later.
+ *
  * JPQL grammar
  * JPQL可以操作实体模型 并通过属性的方法 指定返回对应列 d.id, d.breed 返回两个列
  * :id 绑定 id 参数
+ *
+ *  The CrudRepository interface provides sophisticated CRUD functionality for the entity class that is being managed.(JPA)
  */
 public interface DogRepository extends CrudRepository<Dog,Long> {
     @Query("select d.id, d.breed from Dog d where d.id=:id")

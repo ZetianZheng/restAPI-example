@@ -11,6 +11,7 @@ after set up, you can open the localhost:8082/h2 to open h2 console.
 2. create a web controller using @RestController  [DogController.java](./src/main/java/com/udacity/RestAPIexample/web/DogController.java);
 3. Step 1: Create a repository that extends CrudRepository for creating, reading, updating, and deleting Dog objects.
    - [DogRepository.java](./src/main/java/com/udacity/RestAPIexample/repository/DogRepository.java);
+     - reference : [JPA](https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#reference)
    - findBreedById;
    - findAllBreed;
    - findAllName;
@@ -72,10 +73,12 @@ Reuse your Dog REST API code from Lesson 2 and create unit and integration tests
 [在SpringBoot中使用MockMvc进行单位测试 - 简书](https://www.jianshu.com/p/13408dd4bef7)
 - Step 1: Create a unit test for your API using the @WebMvcTest annotation.
   [DogControllerUnitTest](./src/test/java/com/udacity/RestAPIexample/web/DogControllerUnitTest.java)
+    - .with(user("admin").password("password").roles("USER", "ADMIN") to authorized
 - Step 2: Create an integration test for your API using the @SpringBootTest annotation.
   [DogControllerUnitIntegrationTest](./src/test/java/com/udacity/RestAPIexample/web/DogControllerUnitIntegrationTest.java)
-- TestRestTemplate:
-- assertThat:
+    - 
+- TestRestTemplate: Http 常用客户端，spring框架提供的RestTemplate类可用于在应用中调用rest服务，它简化了与http服务的通信方式，统一了RESTful的标准，封装了http链接,大大提高客户端的编写效率
+
 
 # problem fix:
 ## fix plugin not found problem:
@@ -155,3 +158,9 @@ public class AssertThatTest {
   But in Spring Boot 2.6 the PathPattern-based is the default and this is the root cause of the error
 - 又称路径匹配原则(Path Matching)。Spring MVC中的路径匹配要比标准的web.xml要灵活的多。 默认的策略实现了 org.springframework.util.AntPathMatcher，就像名字提示的那样，路径模式是使用了Apache Ant的样式路径。
     原文链接：https://blog.csdn.net/ahutdbx/article/details/82852921
+
+# DogControllerUnitTest: failed
+java.lang.IllegalStateException: Failed to load ApplicationContext
+
+reason:
+This error is occurring because in your test set you are not including the EncoderConfig to be used in SpringSecurityConfig.
