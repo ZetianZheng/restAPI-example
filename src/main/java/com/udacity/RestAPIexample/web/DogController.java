@@ -32,6 +32,13 @@ import java.util.List;
  *
  * @ApiResponses:
  *      自定义code status message
+ *
+ * @ApiOperation:
+ *      Describes an operation or typically a HTTP method against a specific path.
+ *
+ * @ApiImplicitParam
+ *      非对象参数描述
+ * [SWAGGER注释API详细说明 - 星朝 - 博客园](https://www.cnblogs.com/jpfss/p/12120423.html)
  */
 @RestController
 @ApiResponses(value = {
